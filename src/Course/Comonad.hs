@@ -8,7 +8,7 @@ import Course.Core
 import Course.ExactlyOne
 import Course.Extend
 
--- | All instances of the `Comonad` type-class must satisfy two laws. These
+-- | All instances of the `Caomonad` type-class must satisfy two laws. These
 -- laws are not checked by the compiler. These laws are given as:
 --
 -- * The law of left identity
@@ -29,8 +29,7 @@ instance Comonad ExactlyOne where
   copure ::
     ExactlyOne a
     -> a
-  copure =
-    error "todo: Course.Comonad copure#instance ExactlyOne"
+  copure (ExactlyOne a) = a
 
 -- | Witness that all things with (<<=) and copure also have (<$>).
 --
@@ -41,5 +40,4 @@ instance Comonad ExactlyOne where
   (a -> b)
   -> k a
   -> k b
-(<$$>) =
-  error "todo: Course.Comonad#(<$>)"
+(<$$>) f a =  f . copure <<= a
